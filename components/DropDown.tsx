@@ -1,4 +1,3 @@
-import { View, Text } from "react-native";
 import * as DropdownMenu from "zeego/dropdown-menu";
 import RoundBtn from "./RoundBtn";
 

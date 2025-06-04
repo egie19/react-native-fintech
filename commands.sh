@@ -25,4 +25,6 @@ npx expo install expo-local-authentication
 
 npx expo install expo-image-picker
 
-npx expo install expo-dynamic-app-icon
+/* Library not compatible or having an issue on Android Build */
+// npx expo install expo-dynamic-app-icon
+// npm install @react-native-menu/menu@1.2.2 --legacy-peer-deps
