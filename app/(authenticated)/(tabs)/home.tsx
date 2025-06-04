@@ -1,4 +1,10 @@
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import Colors from "@/constants/Colors";
 import RoundBtn from "@/components/RoundBtn";
@@ -31,10 +37,29 @@ const Page = () => {
         paddingTop: headerHeight,
       }}
     >
-      <View style={styles.account}>
-        <View style={styles.row}>
-          <Text style={styles.balance}>{balance()}</Text>
-          <Text style={styles.currency}>€</Text>
+      <View style={styles.container}>
+        <View style={styles.account}>
+          <View style={styles.row}>
+            <Text style={styles.balance}>{balance()}</Text>
+            <Text style={styles.currency}>₱</Text>
+          </View>
+          <TouchableOpacity
+            style={[
+              defaultStyles.pillButtonSmall,
+              {
+                backgroundColor: Colors.lightGray,
+                alignSelf: "center",
+                width: "50%",
+                marginTop: 20,
+              },
+            ]}
+          >
+            <Text
+              style={[defaultStyles.buttonTextSmall, { color: Colors.dark }]}
+            >
+              Accounts
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
 
@@ -76,7 +101,21 @@ const Page = () => {
                 {transaction.date.toLocaleString()}
               </Text>
             </View>
-            <Text>{transaction.amount}€</Text>
+            <View
+              style={
+                transaction.amount > 0
+                  ? styles.gainContainer
+                  : styles.lossContainer
+              }
+            >
+              <Text
+                style={
+                  transaction.amount > 0 ? styles.gainText : styles.lossText
+                }
+              >
+                {transaction.amount}₱
+              </Text>
+            </View>
           </View>
         ))}
       </View>
@@ -88,7 +127,7 @@ const Page = () => {
 
 const styles = StyleSheet.create({
   account: {
-    margin: 80,
+    marginVertical: 20,
     alignItems: "center",
   },
   row: {
@@ -124,6 +163,40 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.lightGray,
     justifyContent: "center",
     alignItems: "center",
+  },
+  gainContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 60,
+    height: 28,
+    borderRadius: 6,
+    backgroundColor: "#dff7e1",
+  },
+  lossContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+    width: 60,
+    height: 28,
+    borderRadius: 6,
+    backgroundColor: "#f5d0d0",
+  },
+  gainText: { color: "green" },
+  lossText: { color: "red" },
+  container: {
+    alignSelf: "center",
+    alignContent: "center",
+    marginVertical: 25,
+    backgroundColor: "white",
+    width: "85%",
+    height: "17%",
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5, // Android shadow
   },
 });
 
