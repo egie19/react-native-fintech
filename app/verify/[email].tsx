@@ -59,7 +59,6 @@ const Page = () => {
       });
 
       if (signUpAttempt.status === "complete") {
-        console.log("SIGN UP COMPLETE");
         await setActive!({ session: signUp!.createdSessionId });
       } else {
         console.error(JSON.stringify(signUpAttempt, null, 2));

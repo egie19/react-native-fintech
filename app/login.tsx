@@ -31,36 +31,52 @@ const Page = () => {
 
   const onSignIn = async (type: SignInType) => {
     if (type === SignInType.Phone) {
-      try {
-        const fullPhoneNumber = `${countryCode}${phoneNumber}`;
+      await phoneSign();
+    }
 
-        const { supportedFirstFactors } = await signIn!.create({
-          identifier: fullPhoneNumber,
-        });
+    switch (type) {
+      case SignInType.Phone:
+        await phoneSign();
+        break;
+      case SignInType.Email:
+        router.push("/emailSignIn");
+        break;
 
-        const firstPhoneFactor: any = supportedFirstFactors?.find(
-          (factor: any) => {
-            return factor.strategy === "phone_code";
-          }
-        );
+      default:
+        break;
+    }
+  };
 
-        const { phoneNumberId } = firstPhoneFactor;
+  const phoneSign = async () => {
+    try {
+      const fullPhoneNumber = `${countryCode}${phoneNumber}`;
 
-        await signIn!.prepareFirstFactor({
-          strategy: "phone_code",
-          phoneNumberId,
-        });
+      const { supportedFirstFactors } = await signIn!.create({
+        identifier: fullPhoneNumber,
+      });
 
-        router.push({
-          pathname: "/verify/[phone]",
-          params: { phone: fullPhoneNumber, signin: "true" },
-        });
-      } catch (err) {
-        console.log("error: ", JSON.stringify(err, null, 2));
-        if (isClerkAPIResponseError(err)) {
-          if (err.errors[0].code === "form_identifier_not_found") {
-            Alert.alert("Error", err.errors[0].message);
-          }
+      const firstPhoneFactor: any = supportedFirstFactors?.find(
+        (factor: any) => {
+          return factor.strategy === "phone_code";
+        }
+      );
+
+      const { phoneNumberId } = firstPhoneFactor;
+
+      await signIn!.prepareFirstFactor({
+        strategy: "phone_code",
+        phoneNumberId,
+      });
+
+      router.push({
+        pathname: "/verify/[phone]",
+        params: { phone: fullPhoneNumber, signin: "true" },
+      });
+    } catch (err) {
+      console.log("error: ", JSON.stringify(err, null, 2));
+      if (isClerkAPIResponseError(err)) {
+        if (err.errors[0].code === "form_identifier_not_found") {
+          Alert.alert("Error", err.errors[0].message);
         }
       }
     }

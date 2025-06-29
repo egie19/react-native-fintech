@@ -5,7 +5,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/componentsold/useColorScheme";
+// import { useColorScheme } from "@/componentsold/useColorScheme";
 import Colors from "@/constants/Colors";
 import { ActivityIndicator, Text, TouchableOpacity, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
@@ -141,6 +141,20 @@ const InitialLayout = () => {
                 />
               </TouchableOpacity>
             </Link>
+          ),
+        }}
+      />
+      <Stack.Screen
+        name="emailSignIn"
+        options={{
+          title: "",
+          headerBackTitle: "",
+          headerShadowVisible: false,
+          headerStyle: { backgroundColor: Colors.background },
+          headerLeft: () => (
+            <TouchableOpacity onPress={router.back}>
+              <Ionicons name="arrow-back" size={34} color={Colors.dark} />
+            </TouchableOpacity>
           ),
         }}
       />

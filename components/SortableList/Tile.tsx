@@ -44,7 +44,7 @@ const Tile = ({ id }: TileProps) => {
             paddingTop: 10,
           }}
         >
-          1024₱
+          2025₱
         </Text>
       </View>
     );
@@ -73,7 +73,7 @@ const Tile = ({ id }: TileProps) => {
             }}
           >
             <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 18 }}>
-              5₱
+              20₱
             </Text>
           </View>
           <Text
